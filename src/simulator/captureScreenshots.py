@@ -54,7 +54,7 @@ def setFocusToMobizen():
 def captureScreenshots():
 	i = 0
 	count = 0
-	lastPoint = setFocusToMobizen()
+	lastPoint = focusPoint
 	startTime = prevTime = time.time()
 	while distance(lastPoint, pyautogui.position()) < 100:
 		# Do next click

@@ -16,12 +16,11 @@ def processImage(image, name, orbIcons):
 	
 	colorIndependent = reduce(lambda x,y:x+y, foundPositions)
 	separateXandY = zip(*colorIndependent)
-	cleanedUpPoints = [sorted(set(separateList)) for separateList in separateXandY]
-	thresholds = [findThresholds(separateList) for separateList in cleanedUpPoints]
+	mappings = [createMapping(separateList) for separateList in separateXandY]
 	
-	correctPositions = [[thresholdPointLookup(point, thresholds) for point in sublist] for sublist in foundPositions]
+	correctPositions = [[mappingPointLookup(point, mappings) for point in sublist] for sublist in foundPositions]
 	
-	finalBoard = board.Board(len(thresholds[1])+1, len(thresholds[0])+1)
+	finalBoard = board.Board(len(mappings[1])+1, len(mappings[0])+1)
 	for i, sublist in enumerate(correctPositions):
 		for x, y in sublist:
 			finalArr.set(x, y, i)
@@ -34,8 +33,8 @@ def processImage(image, name, orbIcons):
 
 # Takes an array of values, and returns which ones have the biggest difference from the ones before them.
 # This assumes that we do not have any outlier points which could throw it off.
-def findThresholds(arr):
-	differences = numpy.diff(arr)
+def createMapping(arr):
+	differences = numpy.diff(sorted(set(arr)))
 	cleanedUpDifferences = sorted(set(differences))
 	secondDerivative = numpy.diff(cleanedUpDifferences)
 	maxesOfSecondDerivative = max((v, i) for i, v in enumerate(secondDerivative))
@@ -44,11 +43,11 @@ def findThresholds(arr):
 	return thresholds
 	
 # Converts a point to final index
-def thresholdPointLookup(point, thresholds):
-	return (thresholdLookup(point[0], thresholds[0]), thresholdLookup(point[1], thresholds[1]))
+def mappingPointLookup(point, thresholds):
+	return (mappingLookup(point[0], thresholds[0]), mappingLookup(point[1], thresholds[1]))
 
 # Convert a value to final index, given the thresholds
-def thresholdLookup(value, thresholds):
+def mappingLookup(value, thresholds):
 	position = 0
 	while position < len(thresholds) and value >= thresholds[position]:
 		position += 1
