@@ -1,9 +1,20 @@
 class Board:
-	def __init__(self, grid = nil):
-		if grid:
-			self.grid = grid
-		else:
-			self.grid = [[-1] * (6) for i in range(5)]
+	def __init__(self, rows, columns):
+		self.grid = [[-1] * (columns) for i in range(rows)]
+		
+	def getGrid(self):
+		return grid
+			
+	def set(self, row, column, color):
+		currentColor = self.get(row, column)
+		returnVal = currentColor == -1 or currentColor == color
+		
+		self.grid[row][column] = color
+		
+		return returnVal
+		
+	def get(self, row, column):
+		return self.grid[row][column]
 		
 	def __str__(self):
 		return "\n".join(["".join(row) for row in grid]))

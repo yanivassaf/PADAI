@@ -1,6 +1,10 @@
 import numpy
 import cv2
 
+sys.path.append('../model/')
+
+import board
+
 threshold = 0.92
 colors = ("red", "green", "blue", "yellow", "purple", "heart")
 box_colors = ((0,0,255), (0,255,0), (255,0,0), (0,255,255), (205,0,205), (255,100,255))
@@ -17,10 +21,10 @@ def processImage(image, name, orbIcons):
 	
 	correctPositions = [[thresholdPointLookup(point, thresholds) for point in sublist] for sublist in foundPositions]
 	
-	finalArr = [[-1] * (len(thresholds[1])+1) for i in range(len(thresholds[0])+1)]
+	finalBoard = board.Board(len(thresholds[1])+1, len(thresholds[0])+1)
 	for i, sublist in enumerate(correctPositions):
 		for x, y in sublist:
-			finalArr[x][y] = i
+			finalArr.set(x, y, i)
 	
 	print finalArr
 		
