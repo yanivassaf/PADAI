@@ -17,4 +17,4 @@ class Board:
 		return self.grid[row][column]
 		
 	def __str__(self):
-		return "\n".join(["".join(row) for row in grid]))
+		return "\n".join(["".join([str(i) for i in row]) for row in self.grid])
