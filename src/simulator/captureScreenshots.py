@@ -85,7 +85,7 @@ def logEnd(startTime, count):
 pyautogui.screenshot('my_screenshot.png')
 
 
-# Show an image code:	
+# Show an image code:
 cv2.imshow('image',image)
 cv2.waitKey(0)
 cv2.destroyWindow('image')

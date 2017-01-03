@@ -13,3 +13,6 @@ wxpython for cursor detection and backup for the console:
 https://wiki.wxpython.org/FrontPage
 
 Putting time into the console will pay off majorly in the long run.
+
+sqlalchemy for database layer
+http://www.sqlalchemy.org/

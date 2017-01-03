@@ -26,6 +26,7 @@ def processImage(image, name, orbIcons):
 		for x, y in sublist:
 			finalBoard.set(y, x, i)
 	
+	finalBoard.normalize()
 	print finalBoard, "\n"
 		
 	return True
